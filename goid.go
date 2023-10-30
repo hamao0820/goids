@@ -77,3 +77,21 @@ func (g Goid) Flock(goids []Goid) {
 	g.Separate(goids)
 	g.Cohesive(goids)
 }
+
+func (g Goid) AdjustEdge(width, height float64) {
+	if g.position.X < 0 {
+		g.position.X = 0
+		g.velocity.X *= -1
+	} else if g.position.X >= width {
+		g.position.X = width - 1
+		g.velocity.X *= -1
+	}
+
+	if g.position.Y < 0 {
+		g.position.Y = 0
+		g.velocity.Y *= -1
+	} else if g.position.Y >= height {
+		g.position.Y = height - 1
+		g.velocity.Y *= -1
+	}
+}
