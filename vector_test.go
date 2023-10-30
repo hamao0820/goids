@@ -86,3 +86,31 @@ func TestScale(t *testing.T) {
 		})
 	}
 }
+
+func TestLimit(t *testing.T) {
+	type args struct {
+		v Vector
+		l float64
+	}
+
+	tests := []struct {
+		name string
+		args args
+		want Vector
+	}{
+		{"Test 1", args{Vector{3, 4}, 2}, Vector{6.0 / 5.0, 8.0 / 5.0}},
+		{"Test 2", args{Vector{0, 0}, 2}, Vector{0.0, 0.0}},
+		{"Test 3", args{Vector{3, -1}, 2}, Vector{6 / math.Sqrt(10), -2 / math.Sqrt(10)}},
+		{"Test 4", args{Vector{-1, 2}, 5}, Vector{-1, 2}},
+		{"Test 5", args{Vector{2, 2}, 2}, Vector{4 / math.Sqrt(8), 4 / math.Sqrt(8)}},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tt.args.v.Limit(tt.args.l)
+			if (tt.args.v.X-tt.want.X) > 0.0000001 || (tt.args.v.Y-tt.want.Y) > 0.0000001 {
+				t.Errorf("Vector.Limit() = %v, want %v", tt.args.v, tt.want)
+			}
+		})
+	}
+}
