@@ -1,10 +1,10 @@
 package main
 
 type Vector struct {
-	X int
-	Y int
+	X float64
+	Y float64
 }
 
-func CreateVector(x, y int) Vector {
+func CreateVector(x, y float64) Vector {
 	return Vector{X: x, Y: y}
 }
