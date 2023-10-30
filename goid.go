@@ -71,3 +71,9 @@ func (g Goid) Cohesive(goids []Goid) {
 		g.Seek(avgPos)
 	}
 }
+
+func (g Goid) Flock(goids []Goid) {
+	g.Align(goids)
+	g.Separate(goids)
+	g.Cohesive(goids)
+}
