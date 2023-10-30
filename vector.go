@@ -38,6 +38,11 @@ func (v *Vector) Add(v2 Vector) {
 	v.Y += v2.Y
 }
 
+func (v *Vector) Sub(v2 Vector) {
+	v.X -= v2.X
+	v.Y -= v2.Y
+}
+
 func Sub(v2, v1 Vector) Vector {
 	return Vector{X: v2.X - v1.X, Y: v2.Y - v1.Y}
 }
