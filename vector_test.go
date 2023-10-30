@@ -114,3 +114,31 @@ func TestLimit(t *testing.T) {
 		})
 	}
 }
+
+func TestAdd(t *testing.T) {
+	type args struct {
+		v  Vector
+		v2 Vector
+	}
+
+	tests := []struct {
+		name string
+		args args
+		want Vector
+	}{
+		{"Test 1", args{Vector{3, 4}, Vector{1, 2}}, Vector{4, 6}},
+		{"Test 2", args{Vector{0, 0}, Vector{1, 2}}, Vector{1, 2}},
+		{"Test 3", args{Vector{3, -1}, Vector{1, 2}}, Vector{4, 1}},
+		{"Test 4", args{Vector{-1, 2}, Vector{1, 2}}, Vector{0, 4}},
+		{"Test 5", args{Vector{2, 2}, Vector{1, 2}}, Vector{3, 4}},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tt.args.v.Add(tt.args.v2)
+			if tt.args.v != tt.want {
+				t.Errorf("Vector.Add() = %v, want %v", tt.args.v, tt.want)
+			}
+		})
+	}
+}
