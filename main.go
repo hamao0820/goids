@@ -5,12 +5,10 @@ import (
 	"encoding/base64"
 	"fmt"
 	"image"
-	"image/color"
+	"image/draw"
 	"image/png"
-	"math"
 	"math/rand"
-
-	"github.com/llgcode/draw2d/draw2dimg"
+	"os"
 )
 
 func main() {
@@ -28,13 +26,24 @@ func main() {
 	clearScreen()
 	hideCursor()
 
+	f, err := os.Open("test.png")
+	if err != nil {
+		panic(err)
+	}
+	defer f.Close()
+
+	img, _, err := image.Decode(f)
+	if err != nil {
+		panic(err)
+	}
+
 	for i := 0; i < 1000; i++ {
 		for i := 0; i < len(goids); i++ {
 			goid := &goids[i]
 			goid.Flock(goids)
 			goid.Update(width, height)
 		}
-		frame := draw(goids)
+		frame := drawGopher(goids, img)
 		fmt.Printf("loop: %d\n", i)
 		printImage(frame.SubImage(frame.Rect))
 	}
@@ -42,16 +51,12 @@ func main() {
 }
 
 // draw the goids
-func draw(goids []Goid) *image.RGBA {
+func drawGopher(goids []Goid, img image.Image) *image.RGBA {
 	dest := image.NewRGBA(image.Rect(0, 0, 640, 480))
-	gc := draw2dimg.NewGraphicContext(dest)
 	for _, goid := range goids {
-		gc.SetFillColor(color.RGBA{200, 200, 100, 255})
-		gc.MoveTo(float64(goid.position.X), float64(goid.position.Y))
-		gc.ArcTo(float64(goid.position.X), float64(goid.position.Y), float64(5), float64(5), 0, -math.Pi*2)
-		// gc.LineTo(float64(goid.X-goid.Vx), float64(goid.Y-goid.Vy))
-		gc.Close()
-		gc.Fill()
+		p := image.Point{int(goid.position.X), int(goid.position.Y)}
+		rectAngle := image.Rectangle{p.Sub(img.Bounds().Size().Div(2)), p.Add(img.Bounds().Size().Div(2))}
+		draw.Draw(dest, rectAngle, img, image.Point{0, 0}, draw.Over)
 	}
 	return dest
 }
@@ -74,5 +79,5 @@ func printImage(img image.Image) {
 	var buf bytes.Buffer
 	png.Encode(&buf, img)
 	imgBase64Str := base64.StdEncoding.EncodeToString(buf.Bytes())
-	fmt.Printf("\x1b[2;0H\x1b]1337;File=inline=1:%s\a", imgBase64Str)
+	fmt.Printf("\x1b[2;0H\x1b]1337;File=inline=1:%s\a\n", imgBase64Str)
 }
