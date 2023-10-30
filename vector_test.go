@@ -142,3 +142,30 @@ func TestAdd(t *testing.T) {
 		})
 	}
 }
+
+func TestSub(t *testing.T) {
+	type args struct {
+		v2 Vector
+		v1 Vector
+	}
+
+	tests := []struct {
+		name string
+		args args
+		want Vector
+	}{
+		{"Test 1", args{Vector{3, 4}, Vector{1, 2}}, Vector{2, 2}},
+		{"Test 2", args{Vector{0, 0}, Vector{1, 2}}, Vector{-1, -2}},
+		{"Test 3", args{Vector{3, -1}, Vector{1, 2}}, Vector{2, -3}},
+		{"Test 4", args{Vector{-1, 2}, Vector{1, 2}}, Vector{-2, 0}},
+		{"Test 5", args{Vector{2, 2}, Vector{-1, 2}}, Vector{3, 0}},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := Sub(tt.args.v2, tt.args.v1); got != tt.want {
+				t.Errorf("Sub() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
