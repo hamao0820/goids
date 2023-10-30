@@ -43,3 +43,15 @@ func (g Goid) Align(goids []Goid) {
 		g.acceleration.Add(Sub(avgVel, g.velocity))
 	}
 }
+
+func (g Goid) Separate(goids []Goid) {
+	for _, other := range goids {
+		if g == other || !g.IsInsight(other) {
+			continue
+		}
+		d := Sub(g.position, other.position).Len()
+		if d < 50 {
+			g.Flee(other.position)
+		}
+	}
+}
