@@ -26,3 +26,9 @@ func (v *Vector) Scale(l float64) {
 	}
 	v.ScalarMul(l / v.Len())
 }
+
+func (v *Vector) Limit(l float64) {
+	if v.Len() > l {
+		v.Scale(l)
+	}
+}
