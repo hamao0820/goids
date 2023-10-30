@@ -55,3 +55,19 @@ func (g Goid) Separate(goids []Goid) {
 		}
 	}
 }
+
+func (g Goid) Cohesive(goids []Goid) {
+	var avgPos Vector
+	n := 0
+	for _, other := range goids {
+		if g == other || !g.IsInsight(other) {
+			continue
+		}
+		avgPos.Add(other.position)
+		n++
+	}
+	if n > 0 {
+		avgPos.ScalarMul(1 / float64(n))
+		g.Seek(avgPos)
+	}
+}
