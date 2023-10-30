@@ -27,11 +27,11 @@ func (g Goid) IsInsight(g2 Goid) bool {
 	return d < 100
 }
 
-func (g Goid) Align(goids []Goid) {
+func (g *Goid) Align(goids []Goid) {
 	var avgVel Vector
 	n := 0
 	for _, other := range goids {
-		if g == other || !g.IsInsight(other) {
+		if g == &other || !g.IsInsight(other) {
 			continue
 		}
 		avgVel.Add(other.velocity)
@@ -44,9 +44,9 @@ func (g Goid) Align(goids []Goid) {
 	}
 }
 
-func (g Goid) Separate(goids []Goid) {
+func (g *Goid) Separate(goids []Goid) {
 	for _, other := range goids {
-		if g == other || !g.IsInsight(other) {
+		if g == &other || !g.IsInsight(other) {
 			continue
 		}
 		d := Sub(g.position, other.position).Len()
@@ -56,11 +56,11 @@ func (g Goid) Separate(goids []Goid) {
 	}
 }
 
-func (g Goid) Cohesive(goids []Goid) {
+func (g *Goid) Cohesive(goids []Goid) {
 	var avgPos Vector
 	n := 0
 	for _, other := range goids {
-		if g == other || !g.IsInsight(other) {
+		if g == &other || !g.IsInsight(other) {
 			continue
 		}
 		avgPos.Add(other.position)
@@ -72,13 +72,13 @@ func (g Goid) Cohesive(goids []Goid) {
 	}
 }
 
-func (g Goid) Flock(goids []Goid) {
+func (g *Goid) Flock(goids []Goid) {
 	g.Align(goids)
 	g.Separate(goids)
 	g.Cohesive(goids)
 }
 
-func (g Goid) AdjustEdge(width, height float64) {
+func (g *Goid) AdjustEdge(width, height float64) {
 	if g.position.X < 0 {
 		g.position.X = 0
 		g.velocity.X *= -1
@@ -96,7 +96,7 @@ func (g Goid) AdjustEdge(width, height float64) {
 	}
 }
 
-func (g Goid) Update(width, height float64) {
+func (g *Goid) Update(width, height float64) {
 	g.acceleration.Limit(g.maxForce)
 	g.velocity.Add(g.acceleration)
 	g.velocity.Limit(g.maxSpeed)
