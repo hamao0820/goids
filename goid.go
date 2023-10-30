@@ -21,3 +21,8 @@ func (g *Goid) Flee(t Vector) {
 	force := Sub(tv, g.velocity)
 	g.acceleration.Sub(force)
 }
+
+func (g Goid) IsInsight(g2 Goid) bool {
+	d := Sub(g.position, g2.position).Len()
+	return d < 100
+}
