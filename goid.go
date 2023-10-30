@@ -1,7 +1,7 @@
 package main
 
 type Goid struct {
-	position     Position
+	position     Vector
 	velocity     Vector
 	acceleration Vector
 	maxSpeed     float64
