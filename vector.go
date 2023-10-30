@@ -21,5 +21,8 @@ func (v *Vector) ScalarMul(c float64) {
 }
 
 func (v *Vector) Scale(l float64) {
+	if v.Len() == 0 {
+		return
+	}
 	v.ScalarMul(l / v.Len())
 }
