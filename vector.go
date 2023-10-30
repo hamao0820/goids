@@ -32,3 +32,8 @@ func (v *Vector) Limit(l float64) {
 		v.Scale(l)
 	}
 }
+
+func (v *Vector) Add(v2 Vector) {
+	v.X += v2.X
+	v.Y += v2.Y
+}
