@@ -95,3 +95,13 @@ func (g Goid) AdjustEdge(width, height float64) {
 		g.velocity.Y *= -1
 	}
 }
+
+func (g Goid) Update(width, height float64) {
+	g.acceleration.Limit(g.maxForce)
+	g.velocity.Add(g.acceleration)
+	g.velocity.Limit(g.maxSpeed)
+	g.position.Add(g.velocity)
+	g.acceleration.ScalarMul(0)
+
+	g.AdjustEdge(width, height)
+}
