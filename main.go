@@ -27,7 +27,7 @@ func main() {
 			imageWidget.Image = e.RenderImage()
 			imageWidget.Refresh()
 
-			time.Sleep(30 * time.Millisecond)
+			time.Sleep(time.Second / 60)
 		}
 	}()
 
