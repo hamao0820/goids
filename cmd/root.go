@@ -17,8 +17,12 @@ var fullScreen bool
 
 var rootCmd = &cobra.Command{
 	Use:   "goids",
-	Short: "gopher boids flocking algorithm animation",
-	Long:  `gopher boids flocking algorithm animation.`,
+	Short: "Run a Boids Flocking animation with a Gopher in a GUI.",
+	Long: `Run a Boids Flocking animation with a Gopher in a GUI.
+
+This CLI application allows you to run a captivating Boids Flocking animation featuring our beloved Gopher in a graphical user interface (GUI).
+The animation simulates the collective behavior of Gopher-like creatures, following the Boids Flocking algorithm.
+You can experience the mesmerizing movement patterns of Gophers as they interact with one another, all while being displayed in a visually appealing graphical interface.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if width <= 0 || height <= 0 {
 			fmt.Println("width and height must be positive")
