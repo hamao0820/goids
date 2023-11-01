@@ -16,8 +16,9 @@ var force float64
 var fullScreen bool
 
 var rootCmd = &cobra.Command{
-	Use:   "goids",
-	Short: "Run a Boids Flocking animation with a Gopher in a GUI.",
+	Use:     "goids",
+	Version: "1.0.0",
+	Short:   "Run a Boids Flocking animation with a Gopher in a GUI.",
 	Long: `Run a Boids Flocking animation with a Gopher in a GUI.
 
 This CLI application allows you to run a captivating Boids Flocking animation featuring our beloved Gopher in a graphical user interface (GUI).
