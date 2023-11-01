@@ -18,20 +18,20 @@ var rootCmd = &cobra.Command{
 	Short: "gopher boids flocking algorithm animation",
 	Long:  `gopher boids flocking algorithm animation.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		if width < 0 || height < 0 {
+		if width <= 0 || height <= 0 {
 			fmt.Println("width and height must be positive")
 			os.Exit(1)
 		}
-		if n < 0 {
-			fmt.Println("number of goids must be positive")
+		if n <= 0 {
+			fmt.Println("number of gopher must be positive")
 			os.Exit(1)
 		}
 		if speed < 0 {
-			fmt.Println("max speed must be positive")
+			fmt.Println("max speed must be non negative")
 			os.Exit(1)
 		}
 		if force < 0 {
-			fmt.Println("max force must be positive")
+			fmt.Println("max force must be non negative")
 			os.Exit(1)
 		}
 		gui.Run(width, height, n, speed, force)
