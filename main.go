@@ -12,17 +12,17 @@ import (
 func main() {
 	width, height := 640, 480
 
-	myApp := app.New()
-	window := myApp.NewWindow("Image")
-	window.Resize(fyne.NewSize(float32(width), float32(height)))
-	window.CenterOnScreen()
+	a := app.New()
+	w := a.NewWindow("Image")
+	w.Resize(fyne.NewSize(float32(width), float32(height)))
+	w.CenterOnScreen()
 
 	e := goids.CreateEnv(float64(width), float64(height), 30, 3, 2)
 
 	go func() {
 		img := e.RenderImage()
 		imageWidget := canvas.NewImageFromImage(img)
-		window.SetContent(imageWidget)
+		w.SetContent(imageWidget)
 		for {
 			e.Update()
 			imageWidget.Image = e.RenderImage()
@@ -32,6 +32,6 @@ func main() {
 		}
 	}()
 
-	window.ShowAndRun()
-	myApp.Quit()
+	w.ShowAndRun()
+	a.Quit()
 }
