@@ -1,4 +1,4 @@
-package main
+package gui
 
 import (
 	"goids/goids"
@@ -10,7 +10,7 @@ import (
 	"fyne.io/fyne/v2/canvas"
 )
 
-func main() {
+func Run() {
 	width, height := 640, 480
 
 	a := app.New()
