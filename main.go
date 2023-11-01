@@ -1,15 +1,13 @@
 package main
 
 import (
-	"fmt"
-	"goids/goids"
+	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/app"
 )
 
 func main() {
-	e := goids.CreateEnv(500, 500, 30, 4, 2)
-
-	for i := 0; i < 1000; i++ {
-		e.Update()
-		fmt.Println(e.Render())
-	}
+	myApp := app.New()
+	win := myApp.NewWindow("sample")
+	win.Resize(fyne.NewSize(400, 300))
+	win.ShowAndRun()
 }
