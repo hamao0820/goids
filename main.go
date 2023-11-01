@@ -16,7 +16,7 @@ func main() {
 	window := myApp.NewWindow("Image")
 	window.Resize(fyne.NewSize(float32(width), float32(height)))
 
-	e := goids.CreateEnv(float64(width), float64(height), 30, 4, 2)
+	e := goids.CreateEnv(float64(width), float64(height), 30, 3, 2)
 
 	go func() {
 		img := e.RenderImage()
