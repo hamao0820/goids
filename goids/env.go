@@ -23,7 +23,7 @@ type Environment struct {
 }
 
 func CreateEnv(width, height float64, n int, maxSpeed, maxForce float64) Environment {
-	goids := make([]Goid, 30)
+	goids := make([]Goid, n)
 	for i := range goids {
 		position := CreateVector(rand.Float64()*width, rand.Float64()*height)
 		velocity := CreateVector(rand.Float64()*2-1, rand.Float64()*2-1)
