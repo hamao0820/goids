@@ -10,9 +10,7 @@ import (
 	"fyne.io/fyne/v2/canvas"
 )
 
-func Run() {
-	width, height := 640, 480
-
+func Run(width, height int) {
 	a := app.New()
 	w := a.NewWindow("Goids")
 	w.Resize(fyne.NewSize(float32(width), float32(height)))
