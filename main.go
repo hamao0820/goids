@@ -15,6 +15,7 @@ func main() {
 	myApp := app.New()
 	window := myApp.NewWindow("Image")
 	window.Resize(fyne.NewSize(float32(width), float32(height)))
+	window.CenterOnScreen()
 
 	e := goids.CreateEnv(float64(width), float64(height), 30, 3, 2)
 
