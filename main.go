@@ -32,4 +32,5 @@ func main() {
 	}()
 
 	window.ShowAndRun()
+	myApp.Quit()
 }
