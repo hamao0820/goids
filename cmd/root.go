@@ -9,6 +9,7 @@ import (
 )
 
 var width, height int
+var n int
 
 var rootCmd = &cobra.Command{
 	Use:   "goids",
@@ -19,7 +20,12 @@ var rootCmd = &cobra.Command{
 			fmt.Println("width and height must be positive")
 			os.Exit(1)
 		}
-		gui.Run(width, height)
+		if n < 0 {
+			fmt.Println("number of goids must be positive")
+			os.Exit(1)
+		}
+		fmt.Printf("%d\n", n)
+		gui.Run(width, height, n)
 	},
 }
 
@@ -34,4 +40,5 @@ func init() {
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 	rootCmd.Flags().IntVarP(&width, "width", "w", 640, "width of the window")
 	rootCmd.Flags().IntVar(&height, "height", 480, "height of the window")
+	rootCmd.Flags().IntVarP(&n, "number", "n", 30, "number of gopher")
 }

@@ -10,13 +10,13 @@ import (
 	"fyne.io/fyne/v2/canvas"
 )
 
-func Run(width, height int) {
+func Run(width, height int, n int) {
 	a := app.New()
 	w := a.NewWindow("Goids")
 	w.Resize(fyne.NewSize(float32(width), float32(height)))
 	w.CenterOnScreen()
 
-	e := goids.CreateEnv(float64(width), float64(height), 30, 3, 2)
+	e := goids.CreateEnv(float64(width), float64(height), n, 3, 2)
 
 	go func() {
 		img := e.RenderImage()
