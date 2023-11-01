@@ -71,14 +71,18 @@ func (e Environment) Height() float64 {
 	return e.height
 }
 
-func (e Environment) Render() string {
+func (e Environment) RenderImage() image.Image {
 	dest := image.NewRGBA(image.Rect(0, 0, int(e.Width()), int(e.Height())))
 	for _, goid := range e.goids {
 		p := image.Point{int(goid.position.X), int(goid.position.Y)}
 		rectAngle := image.Rectangle{p.Sub(e.image.Bounds().Size().Div(2)), p.Add(e.image.Bounds().Size().Div(2))}
 		draw.Draw(dest, rectAngle, e.image, image.Point{0, 0}, draw.Over)
 	}
-	img := dest.SubImage(dest.Rect)
+	return dest.SubImage(dest.Rect)
+}
+
+func (e Environment) Render() string {
+	img := e.RenderImage()
 	var buf bytes.Buffer
 	png.Encode(&buf, img)
 	imgBase64Str := base64.StdEncoding.EncodeToString(buf.Bytes())
