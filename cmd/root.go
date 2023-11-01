@@ -5,6 +5,7 @@ import (
 	"goids/gui"
 	"os"
 
+	"github.com/go-vgo/robotgo"
 	"github.com/spf13/cobra"
 )
 
@@ -12,6 +13,7 @@ var width, height int
 var n int
 var speed float64
 var force float64
+var fullScreen bool
 
 var rootCmd = &cobra.Command{
 	Use:   "goids",
@@ -34,6 +36,9 @@ var rootCmd = &cobra.Command{
 			fmt.Println("max force must be non negative")
 			os.Exit(1)
 		}
+		if fullScreen {
+			width, height = robotgo.GetScreenSize()
+		}
 		gui.Run(width, height, n, speed, force)
 	},
 }
@@ -52,4 +57,5 @@ func init() {
 	rootCmd.Flags().IntVarP(&n, "number", "n", 30, "number of gopher")
 	rootCmd.Flags().Float64VarP(&speed, "speed", "s", 3, "max speed of the gopher")
 	rootCmd.Flags().Float64VarP(&force, "force", "f", 2, "max force of the gopher")
+	rootCmd.Flags().BoolVar(&fullScreen, "full", false, "full screen mode")
 }
