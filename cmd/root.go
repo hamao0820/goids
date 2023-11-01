@@ -55,7 +55,6 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 	rootCmd.Flags().IntVarP(&width, "width", "w", 640, "width of the window")
 	rootCmd.Flags().IntVar(&height, "height", 480, "height of the window")
 	rootCmd.Flags().IntVarP(&n, "number", "n", 30, "number of gopher")
