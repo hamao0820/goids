@@ -2,6 +2,7 @@ package main
 
 import (
 	"goids/goids"
+	"image"
 	"time"
 
 	"fyne.io/fyne/v2"
@@ -23,15 +24,21 @@ func main() {
 		img := e.RenderImage()
 		imageWidget := canvas.NewImageFromImage(img)
 		w.SetContent(imageWidget)
-		for {
-			e.Update()
-			imageWidget.Image = e.RenderImage()
-			imageWidget.Refresh()
-
-			time.Sleep(time.Second / 60)
+		for range time.Tick(time.Second / 60) {
+			tick(&e, imageWidget)
 		}
 	}()
 
 	w.ShowAndRun()
 	a.Quit()
+}
+
+func tick(e *goids.Environment, imageWidget *canvas.Image) {
+	e.Update()
+	updateImage(imageWidget, e.RenderImage())
+}
+
+func updateImage(imageWidget *canvas.Image, img image.Image) {
+	imageWidget.Image = img
+	imageWidget.Refresh()
 }
