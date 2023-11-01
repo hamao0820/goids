@@ -2,14 +2,17 @@ package goids
 
 import (
 	"bytes"
+	_ "embed"
 	"encoding/base64"
 	"fmt"
 	"image"
 	"image/draw"
 	"image/png"
 	"math/rand"
-	"os"
 )
+
+//go:embed img/gopher.png
+var b []byte
 
 type Environment struct {
 	width    float64
@@ -33,13 +36,7 @@ func CreateEnv(width, height float64, n int, maxSpeed, maxForce float64) Environ
 		goids[i] = Goid{position: position, velocity: velocity, maxSpeed: float64(maxSpeed), maxForce: float64(maxForce)}
 	}
 
-	f, err := os.Open("test.png")
-	if err != nil {
-		panic(err)
-	}
-	defer f.Close()
-
-	img, _, err := image.Decode(f)
+	img, _, err := image.Decode(bytes.NewReader(b))
 	if err != nil {
 		panic(err)
 	}
