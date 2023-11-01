@@ -10,6 +10,7 @@ import (
 
 var width, height int
 var n int
+var speed float64
 
 var rootCmd = &cobra.Command{
 	Use:   "goids",
@@ -24,8 +25,12 @@ var rootCmd = &cobra.Command{
 			fmt.Println("number of goids must be positive")
 			os.Exit(1)
 		}
+		if speed < 0 {
+			fmt.Println("max speed must be positive")
+			os.Exit(1)
+		}
 		fmt.Printf("%d\n", n)
-		gui.Run(width, height, n)
+		gui.Run(width, height, n, speed)
 	},
 }
 
@@ -41,4 +46,5 @@ func init() {
 	rootCmd.Flags().IntVarP(&width, "width", "w", 640, "width of the window")
 	rootCmd.Flags().IntVar(&height, "height", 480, "height of the window")
 	rootCmd.Flags().IntVarP(&n, "number", "n", 30, "number of gopher")
+	rootCmd.Flags().Float64VarP(&speed, "speed", "s", 3, "max speed of the gopher")
 }
