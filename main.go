@@ -14,7 +14,7 @@ func main() {
 	width, height := 640, 480
 
 	a := app.New()
-	w := a.NewWindow("Image")
+	w := a.NewWindow("Goids")
 	w.Resize(fyne.NewSize(float32(width), float32(height)))
 	w.CenterOnScreen()
 
