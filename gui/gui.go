@@ -28,7 +28,6 @@ func Run(width, height int, n int, speed float64, force float64, sight float64) 
 	}()
 
 	w.ShowAndRun()
-	a.Quit()
 }
 
 func tick(e *goids.Environment, imageWidget *canvas.Image) {
