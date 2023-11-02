@@ -53,36 +53,15 @@ func CreateEnv(width, height float64, n int, maxSpeed, maxForce float64, sight f
 		goids[i] = Goid{position: position, velocity: velocity, maxSpeed: float64(maxSpeed), maxForce: float64(maxForce), sight: sight, imageType: t}
 	}
 
-	f, err := imgs.ReadFile("img/gopher-front.png")
-	if err != nil {
-		panic(err)
-	}
-	imgFront, _, err := image.Decode(bytes.NewReader(f))
-	if err != nil {
-		panic(err)
-	}
+	imgFront := loadImage("img/gopher-front.png")
 	imgDstFront := image.NewRGBA(image.Rect(0, 0, int(float64(imgFront.Bounds().Dx())*32.0/float64(imgFront.Bounds().Dy())), 32)) // 高さを32に固定
 	xdraw.CatmullRom.Scale(imgDstFront, imgDstFront.Bounds(), imgFront, imgFront.Bounds(), draw.Over, nil)
 
-	s, err := imgs.ReadFile("img/gopher-side.png")
-	if err != nil {
-		panic(err)
-	}
-	imgSide, _, err := image.Decode(bytes.NewReader(s))
-	if err != nil {
-		panic(err)
-	}
+	imgSide := loadImage("img/gopher-side.png")
 	imgDstSide := image.NewRGBA(image.Rect(0, 0, int(float64(imgSide.Bounds().Dx())*32.0/float64(imgSide.Bounds().Dy())), 32)) // 高さを32に固定
 	xdraw.CatmullRom.Scale(imgDstSide, imgDstSide.Bounds(), imgSide, imgSide.Bounds(), draw.Over, nil)
 
-	p, err := imgs.ReadFile("img/gopher-pink.png")
-	if err != nil {
-		panic(err)
-	}
-	imgPink, _, err := image.Decode(bytes.NewReader(p))
-	if err != nil {
-		panic(err)
-	}
+	imgPink := loadImage("img/gopher-pink.png")
 	imgDstPink := image.NewRGBA(image.Rect(0, 0, int(float64(imgPink.Bounds().Dx())*32.0/float64(imgPink.Bounds().Dy())), 32)) // 高さを32に固定
 	xdraw.CatmullRom.Scale(imgDstPink, imgDstPink.Bounds(), imgPink, imgPink.Bounds(), draw.Over, nil)
 
@@ -139,4 +118,16 @@ func (e Environment) Render() string {
 	png.Encode(&buf, img)
 	imgBase64Str := base64.StdEncoding.EncodeToString(buf.Bytes())
 	return fmt.Sprintf("\x1b[2;0H\x1b]1337;File=inline=1:%s\a\n", imgBase64Str)
+}
+
+func loadImage(path string) image.Image {
+	f, err := imgs.ReadFile(path)
+	if err != nil {
+		panic(err)
+	}
+	img, _, err := image.Decode(bytes.NewReader(f))
+	if err != nil {
+		panic(err)
+	}
+	return img
 }
