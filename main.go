@@ -1,6 +1,6 @@
 package main
 
-import "goids/cmd"
+import "github.com/shunsukehamada/goids/cmd"
 
 func main() {
 	cmd.Execute()

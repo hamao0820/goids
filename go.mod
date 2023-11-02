@@ -1,4 +1,4 @@
-module goids
+module github.com/shunsukehamada/goids
 
 go 1.20
 

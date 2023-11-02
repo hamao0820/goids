@@ -1,9 +1,10 @@
 package gui
 
 import (
-	"goids/goids"
 	"image"
 	"time"
+
+	"github.com/shunsukehamada/goids/goids"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"

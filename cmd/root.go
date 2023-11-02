@@ -2,8 +2,9 @@ package cmd
 
 import (
 	"fmt"
-	"goids/gui"
 	"os"
+
+	"github.com/shunsukehamada/goids/gui"
 
 	"github.com/go-vgo/robotgo"
 	"github.com/spf13/cobra"
