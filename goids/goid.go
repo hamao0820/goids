@@ -8,6 +8,8 @@ const (
 	Pink
 )
 
+const GopherSize = 32
+
 type Goid struct {
 	position     Vector
 	velocity     Vector
@@ -89,19 +91,19 @@ func (g *Goid) Flock(goids []Goid) {
 }
 
 func (g *Goid) AdjustEdge(width, height float64) {
-	if g.position.X < 0 {
-		g.position.X = 0
+	if g.position.X < float64(GopherSize)/2 {
+		g.position.X = float64(GopherSize) / 2
 		g.velocity.X *= -1
-	} else if g.position.X >= width {
-		g.position.X = width - 1
+	} else if g.position.X >= width-float64(GopherSize)/2 {
+		g.position.X = width - float64(GopherSize)/2 - 1
 		g.velocity.X *= -1
 	}
 
-	if g.position.Y < 0 {
-		g.position.Y = 0
+	if g.position.Y < float64(GopherSize)/2 {
+		g.position.Y = float64(GopherSize) / 2
 		g.velocity.Y *= -1
-	} else if g.position.Y >= height {
-		g.position.Y = height - 1
+	} else if g.position.Y >= height-float64(GopherSize)/2 {
+		g.position.Y = height - float64(GopherSize)/2 - 1
 		g.velocity.Y *= -1
 	}
 }

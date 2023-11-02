@@ -57,7 +57,7 @@ func CreateEnv(width, height float64, n int, maxSpeed, maxForce float64, sight f
 	imgSide := loadImage("img/gopher-side.png")
 	imgPink := loadImage("img/gopher-pink.png")
 
-	return Environment{width: width, height: height, goidsNum: n, goids: goids, maxSpeed: maxSpeed, maxForce: maxForce, frontImage: resizeByHeight(imgFront, 32), SideImage: resizeByHeight(imgSide, 32), PinkImage: resizeByHeight(imgPink, 32)}
+	return Environment{width: width, height: height, goidsNum: n, goids: goids, maxSpeed: maxSpeed, maxForce: maxForce, frontImage: resizeByHeight(imgFront, GopherSize), SideImage: resizeByHeight(imgSide, GopherSize), PinkImage: resizeByHeight(imgPink, GopherSize)}
 }
 
 func (e *Environment) Update() {
