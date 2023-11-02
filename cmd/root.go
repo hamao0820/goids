@@ -6,7 +6,6 @@ import (
 
 	"github.com/shunsukehamada/goids/gui"
 
-	"github.com/go-vgo/robotgo"
 	"github.com/spf13/cobra"
 )
 
@@ -47,10 +46,8 @@ You can experience the mesmerizing movement patterns of Gophers as they interact
 			fmt.Println("sight must be non negative")
 			os.Exit(1)
 		}
-		if fullScreen {
-			width, height = robotgo.GetScreenSize()
-		}
-		gui.Run(width, height, n, speed, force, sight)
+
+		gui.Run(width, height, n, speed, force, sight, fullScreen)
 	},
 }
 
