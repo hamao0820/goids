@@ -9,9 +9,11 @@ import (
 	"image/draw"
 	"image/png"
 	"math/rand"
+
+	xdraw "golang.org/x/image/draw"
 )
 
-//go:embed img/gopher.png
+//go:embed img/gopher-front.png
 var b []byte
 
 type Environment struct {
@@ -41,7 +43,12 @@ func CreateEnv(width, height float64, n int, maxSpeed, maxForce float64, sight f
 		panic(err)
 	}
 
-	return Environment{width: width, height: height, goidsNum: n, goids: goids, maxSpeed: maxSpeed, maxForce: maxForce, image: img}
+	rctSrc := img.Bounds()
+
+	imgDst := image.NewRGBA(image.Rect(0, 0, int(float64(rctSrc.Dx())*32.0/float64(rctSrc.Dy())), 32)) // 高さを32に固定
+	xdraw.CatmullRom.Scale(imgDst, imgDst.Bounds(), img, rctSrc, draw.Over, nil)
+
+	return Environment{width: width, height: height, goidsNum: n, goids: goids, maxSpeed: maxSpeed, maxForce: maxForce, image: imgDst.SubImage(imgDst.Rect)}
 }
 
 func (e *Environment) Update() {
