@@ -6,6 +6,7 @@ type Goid struct {
 	acceleration Vector
 	maxSpeed     float64
 	maxForce     float64
+	sight        float64
 }
 
 func (g *Goid) Seek(t Vector) {
@@ -24,7 +25,7 @@ func (g *Goid) Flee(t Vector) {
 
 func (g Goid) IsInsight(g2 Goid) bool {
 	d := Sub(g.position, g2.position).Len()
-	return d < 100
+	return d < g.sight
 }
 
 func (g *Goid) Align(goids []Goid) {

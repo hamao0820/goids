@@ -33,7 +33,7 @@ func CreateEnv(width, height float64, n int, maxSpeed, maxForce float64) Environ
 		velocity.Scale(rand.Float64()*4 - rand.Float64()*2)
 		maxSpeed := maxSpeed
 		maxForce := maxForce
-		goids[i] = Goid{position: position, velocity: velocity, maxSpeed: float64(maxSpeed), maxForce: float64(maxForce)}
+		goids[i] = Goid{position: position, velocity: velocity, maxSpeed: float64(maxSpeed), maxForce: float64(maxForce), sight: 100}
 	}
 
 	img, _, err := image.Decode(bytes.NewReader(b))
