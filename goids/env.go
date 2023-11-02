@@ -54,18 +54,10 @@ func CreateEnv(width, height float64, n int, maxSpeed, maxForce float64, sight f
 	}
 
 	imgFront := loadImage("img/gopher-front.png")
-	imgDstFront := image.NewRGBA(image.Rect(0, 0, int(float64(imgFront.Bounds().Dx())*32.0/float64(imgFront.Bounds().Dy())), 32)) // 高さを32に固定
-	xdraw.CatmullRom.Scale(imgDstFront, imgDstFront.Bounds(), imgFront, imgFront.Bounds(), draw.Over, nil)
-
 	imgSide := loadImage("img/gopher-side.png")
-	imgDstSide := image.NewRGBA(image.Rect(0, 0, int(float64(imgSide.Bounds().Dx())*32.0/float64(imgSide.Bounds().Dy())), 32)) // 高さを32に固定
-	xdraw.CatmullRom.Scale(imgDstSide, imgDstSide.Bounds(), imgSide, imgSide.Bounds(), draw.Over, nil)
-
 	imgPink := loadImage("img/gopher-pink.png")
-	imgDstPink := image.NewRGBA(image.Rect(0, 0, int(float64(imgPink.Bounds().Dx())*32.0/float64(imgPink.Bounds().Dy())), 32)) // 高さを32に固定
-	xdraw.CatmullRom.Scale(imgDstPink, imgDstPink.Bounds(), imgPink, imgPink.Bounds(), draw.Over, nil)
 
-	return Environment{width: width, height: height, goidsNum: n, goids: goids, maxSpeed: maxSpeed, maxForce: maxForce, frontImage: imgDstFront.SubImage(imgDstFront.Rect), SideImage: imgDstSide.SubImage(imgDstSide.Rect), PinkImage: imgDstPink.SubImage(imgDstPink.Rect)}
+	return Environment{width: width, height: height, goidsNum: n, goids: goids, maxSpeed: maxSpeed, maxForce: maxForce, frontImage: resizeByHeight(imgFront, 32), SideImage: resizeByHeight(imgSide, 32), PinkImage: resizeByHeight(imgPink, 32)}
 }
 
 func (e *Environment) Update() {
@@ -130,4 +122,10 @@ func loadImage(path string) image.Image {
 		panic(err)
 	}
 	return img
+}
+
+func resizeByHeight(img image.Image, height float64) image.Image {
+	imgDst := image.NewRGBA(image.Rect(0, 0, int(float64(img.Bounds().Dx())*height/float64(img.Bounds().Dy())), int(height))) // heightを基準にリサイズ
+	xdraw.CatmullRom.Scale(imgDst, imgDst.Bounds(), img, img.Bounds(), draw.Over, nil)
+	return imgDst.SubImage(imgDst.Rect)
 }
