@@ -1,5 +1,13 @@
 package goids
 
+type ImageType int
+
+const (
+	Front ImageType = iota
+	Side
+	Pink
+)
+
 type Goid struct {
 	position     Vector
 	velocity     Vector
@@ -7,6 +15,7 @@ type Goid struct {
 	maxSpeed     float64
 	maxForce     float64
 	sight        float64
+	imageType    ImageType
 }
 
 func (g *Goid) Seek(t Vector) {
