@@ -21,8 +21,6 @@ type Environment struct {
 	height   float64
 	goidsNum int
 	goids    []Goid
-	maxSpeed float64
-	maxForce float64
 
 	frontImage image.Image
 	SideImage  image.Image
@@ -35,8 +33,6 @@ func CreateEnv(width, height float64, n int, maxSpeed, maxForce float64, sight f
 		position := CreateVector(rand.Float64()*width, rand.Float64()*height)
 		velocity := CreateVector(rand.Float64()*2-1, rand.Float64()*2-1)
 		velocity.Scale(rand.Float64()*4 - rand.Float64()*2)
-		maxSpeed := maxSpeed
-		maxForce := maxForce
 
 		var t ImageType
 
@@ -57,7 +53,7 @@ func CreateEnv(width, height float64, n int, maxSpeed, maxForce float64, sight f
 	imgSide := loadImage("img/gopher-side.png")
 	imgPink := loadImage("img/gopher-pink.png")
 
-	return Environment{width: width, height: height, goidsNum: n, goids: goids, maxSpeed: maxSpeed, maxForce: maxForce, frontImage: resizeByHeight(imgFront, GopherSize), SideImage: resizeByHeight(imgSide, GopherSize), PinkImage: resizeByHeight(imgPink, GopherSize)}
+	return Environment{width: width, height: height, goidsNum: n, goids: goids, frontImage: resizeByHeight(imgFront, GopherSize), SideImage: resizeByHeight(imgSide, GopherSize), PinkImage: resizeByHeight(imgPink, GopherSize)}
 }
 
 func (e *Environment) Update() {
