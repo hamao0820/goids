@@ -6,6 +6,7 @@ require (
 	fyne.io/fyne/v2 v2.4.1
 	github.com/go-vgo/robotgo v0.100.10
 	github.com/spf13/cobra v1.7.0
+	golang.org/x/image v0.11.0
 )
 
 require (
@@ -45,7 +46,6 @@ require (
 	github.com/vcaesar/keycode v0.10.0 // indirect
 	github.com/vcaesar/tt v0.20.0 // indirect
 	github.com/yuin/goldmark v1.5.5 // indirect
-	golang.org/x/image v0.11.0 // indirect
 	golang.org/x/mobile v0.0.0-20230531173138-3c911d8e3eda // indirect
 	golang.org/x/net v0.14.0 // indirect
 	golang.org/x/sys v0.11.0 // indirect
