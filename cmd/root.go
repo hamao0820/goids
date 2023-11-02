@@ -14,6 +14,7 @@ var n int
 var speed float64
 var force float64
 var fullScreen bool
+var sight float64
 
 var rootCmd = &cobra.Command{
 	Use:     "goids",
@@ -41,10 +42,14 @@ You can experience the mesmerizing movement patterns of Gophers as they interact
 			fmt.Println("max force must be non negative")
 			os.Exit(1)
 		}
+		if sight < 0 {
+			fmt.Println("sight must be non negative")
+			os.Exit(1)
+		}
 		if fullScreen {
 			width, height = robotgo.GetScreenSize()
 		}
-		gui.Run(width, height, n, speed, force)
+		gui.Run(width, height, n, speed, force, sight)
 	},
 }
 
@@ -61,5 +66,6 @@ func init() {
 	rootCmd.Flags().IntVarP(&n, "number", "n", 30, "number of gopher")
 	rootCmd.Flags().Float64VarP(&speed, "speed", "s", 3, "max speed of the gopher")
 	rootCmd.Flags().Float64VarP(&force, "force", "f", 2, "max force of the gopher")
+	rootCmd.Flags().Float64Var(&sight, "sight", 100, "sight of the gopher")
 	rootCmd.Flags().BoolVar(&fullScreen, "full", false, "full screen mode")
 }

@@ -25,7 +25,7 @@ type Environment struct {
 	image image.Image
 }
 
-func CreateEnv(width, height float64, n int, maxSpeed, maxForce float64) Environment {
+func CreateEnv(width, height float64, n int, maxSpeed, maxForce float64, sight float64) Environment {
 	goids := make([]Goid, n)
 	for i := range goids {
 		position := CreateVector(rand.Float64()*width, rand.Float64()*height)
@@ -33,7 +33,7 @@ func CreateEnv(width, height float64, n int, maxSpeed, maxForce float64) Environ
 		velocity.Scale(rand.Float64()*4 - rand.Float64()*2)
 		maxSpeed := maxSpeed
 		maxForce := maxForce
-		goids[i] = Goid{position: position, velocity: velocity, maxSpeed: float64(maxSpeed), maxForce: float64(maxForce), sight: 100}
+		goids[i] = Goid{position: position, velocity: velocity, maxSpeed: float64(maxSpeed), maxForce: float64(maxForce), sight: sight}
 	}
 
 	img, _, err := image.Decode(bytes.NewReader(b))
