@@ -5,8 +5,11 @@
 # 遊び方
 
 ```zsh
-$ goids
+$ ./bin/goids
 ```
+
+または, 以下のバイナリファイルをダブルクリックして起動してください.
+[./bin/mac/goids](./bin/goids)
 
 gopher が boids flocking algorithm に従って動く様子が GUI で表示されます.  
 まるで渡り鳥になった gopher くんを見て癒されましょう。
