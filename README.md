@@ -9,6 +9,10 @@ $ goids
 gopher が boids flocking algorithm に従って動く様子が GUI で表示されます.  
 まるで渡り鳥になった gopher くんを見て癒されましょう。
 
+## ライセンス
+
+[MIT](LICENSE)
+
 このプロジェクトで使用されている画像は Creative Commons 3.0 ライセンス（CC 3.0）の下で提供されています。
 
 ## 画像のクレジット情報
