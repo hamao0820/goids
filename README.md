@@ -1,5 +1,7 @@
 # goids: boids algorithm CLI Command with Golang
 
+![](goids.gif)
+
 # 遊び方
 
 ```zsh
