@@ -2,23 +2,23 @@
 
 ![](goids.gif)
 
+gopherくんがboids flocking algorithmに従って動くのを眺めるだけのアプリです.
+まるで渡り鳥になったgopherくんを見て癒されましょう.
+
 # 遊び方
 
 ```zsh
 $ ./bin/goids
 ```
 
-または, 以下のバイナリファイルをダブルクリックして起動してください.
+または, 以下のバイナリファイルをダブルクリックして起動してください.  
 [./bin/mac/goids](./bin/goids)
-
-gopher が boids flocking algorithm に従って動く様子が GUI で表示されます.  
-まるで渡り鳥になった gopher くんを見て癒されましょう。
 
 ## ライセンス
 
 [MIT](LICENSE)
 
-このプロジェクトで使用されている画像は Creative Commons 3.0 ライセンス（CC 3.0）の下で提供されています。
+このプロジェクトで使用されている画像はCreative Commons 3.0ライセンス(CC 3.0)の下で提供されています.
 
 ## 画像のクレジット情報
 
@@ -30,8 +30,8 @@ gopher が boids flocking algorithm に従って動く様子が GUI で表示さ
 
 - ライセンス名: Creative Commons 3.0（CC 3.0）
 - ライセンスのリンク: [CC 3.0 ライセンス](https://creativecommons.org/licenses/by/3.0/)
-- 使用許可: 商用利用可、改変可、非営利利用可
+- 使用許可: 商用利用可, 改変可, 非営利利用可
 
 ## 画像のクレジットとライセンスへのリンク
 
-このプロジェクトで使用されている画像についての詳細は、[こちらのリンク](https://github.com/golang-samples/gopher-vector)から確認できます。
+このプロジェクトで使用されている画像についての詳細は, [こちらのリンク](https://github.com/golang-samples/gopher-vector)から確認できます.
