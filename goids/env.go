@@ -2,7 +2,7 @@ package goids
 
 import (
 	"bytes"
-	_ "embed"
+	"embed"
 	"encoding/base64"
 	"fmt"
 	"image"
@@ -13,8 +13,8 @@ import (
 	xdraw "golang.org/x/image/draw"
 )
 
-//go:embed img/gopher-front.png
-var b []byte
+//go:embed img/*
+var imgs embed.FS
 
 type Environment struct {
 	width    float64
@@ -24,7 +24,9 @@ type Environment struct {
 	maxSpeed float64
 	maxForce float64
 
-	image image.Image
+	frontImage image.Image
+	SideImage  image.Image
+	PinkImage  image.Image
 }
 
 func CreateEnv(width, height float64, n int, maxSpeed, maxForce float64, sight float64) Environment {
@@ -42,7 +44,7 @@ func CreateEnv(width, height float64, n int, maxSpeed, maxForce float64, sight f
 
 		if r < 0.001 { // 0.1%
 			t = Pink
-		} else if r < 0.051 { // 5%
+		} else if r < 0.011 { // 1%
 			t = Side
 		} else {
 			t = Front
@@ -51,17 +53,40 @@ func CreateEnv(width, height float64, n int, maxSpeed, maxForce float64, sight f
 		goids[i] = Goid{position: position, velocity: velocity, maxSpeed: float64(maxSpeed), maxForce: float64(maxForce), sight: sight, imageType: t}
 	}
 
-	img, _, err := image.Decode(bytes.NewReader(b))
+	f, err := imgs.ReadFile("img/gopher-front.png")
 	if err != nil {
 		panic(err)
 	}
+	imgFront, _, err := image.Decode(bytes.NewReader(f))
+	if err != nil {
+		panic(err)
+	}
+	imgDstFront := image.NewRGBA(image.Rect(0, 0, int(float64(imgFront.Bounds().Dx())*32.0/float64(imgFront.Bounds().Dy())), 32)) // 高さを32に固定
+	xdraw.CatmullRom.Scale(imgDstFront, imgDstFront.Bounds(), imgFront, imgFront.Bounds(), draw.Over, nil)
 
-	rctSrc := img.Bounds()
+	s, err := imgs.ReadFile("img/gopher-side.png")
+	if err != nil {
+		panic(err)
+	}
+	imgSide, _, err := image.Decode(bytes.NewReader(s))
+	if err != nil {
+		panic(err)
+	}
+	imgDstSide := image.NewRGBA(image.Rect(0, 0, int(float64(imgSide.Bounds().Dx())*32.0/float64(imgSide.Bounds().Dy())), 32)) // 高さを32に固定
+	xdraw.CatmullRom.Scale(imgDstSide, imgDstSide.Bounds(), imgSide, imgSide.Bounds(), draw.Over, nil)
 
-	imgDst := image.NewRGBA(image.Rect(0, 0, int(float64(rctSrc.Dx())*32.0/float64(rctSrc.Dy())), 32)) // 高さを32に固定
-	xdraw.CatmullRom.Scale(imgDst, imgDst.Bounds(), img, rctSrc, draw.Over, nil)
+	p, err := imgs.ReadFile("img/gopher-pink.png")
+	if err != nil {
+		panic(err)
+	}
+	imgPink, _, err := image.Decode(bytes.NewReader(p))
+	if err != nil {
+		panic(err)
+	}
+	imgDstPink := image.NewRGBA(image.Rect(0, 0, int(float64(imgPink.Bounds().Dx())*32.0/float64(imgPink.Bounds().Dy())), 32)) // 高さを32に固定
+	xdraw.CatmullRom.Scale(imgDstPink, imgDstPink.Bounds(), imgPink, imgPink.Bounds(), draw.Over, nil)
 
-	return Environment{width: width, height: height, goidsNum: n, goids: goids, maxSpeed: maxSpeed, maxForce: maxForce, image: imgDst.SubImage(imgDst.Rect)}
+	return Environment{width: width, height: height, goidsNum: n, goids: goids, maxSpeed: maxSpeed, maxForce: maxForce, frontImage: imgDstFront.SubImage(imgDstFront.Rect), SideImage: imgDstSide.SubImage(imgDstSide.Rect), PinkImage: imgDstPink.SubImage(imgDstPink.Rect)}
 }
 
 func (e *Environment) Update() {
@@ -91,9 +116,19 @@ func (e Environment) Height() float64 {
 func (e Environment) RenderImage() image.Image {
 	dest := image.NewRGBA(image.Rect(0, 0, int(e.Width()), int(e.Height())))
 	for _, goid := range e.goids {
+		var img image.Image
+		switch goid.imageType {
+		case Front:
+			img = e.frontImage
+		case Side:
+			img = e.SideImage
+		case Pink:
+			img = e.PinkImage
+		}
+
 		p := image.Point{int(goid.position.X), int(goid.position.Y)}
-		rectAngle := image.Rectangle{p.Sub(e.image.Bounds().Size().Div(2)), p.Add(e.image.Bounds().Size().Div(2))}
-		draw.Draw(dest, rectAngle, e.image, image.Point{0, 0}, draw.Over)
+		rectAngle := image.Rectangle{p.Sub(img.Bounds().Size().Div(2)), p.Add(img.Bounds().Size().Div(2))}
+		draw.Draw(dest, rectAngle, img, image.Point{0, 0}, draw.Over)
 	}
 	return dest.SubImage(dest.Rect)
 }
