@@ -5,14 +5,39 @@
 gopherくんがboids flocking algorithmに従って動くのを眺めるだけのアプリです.
 まるで渡り鳥になったgopherくんを見て癒されましょう.
 
-# 遊び方
+## 遊び方
 
-```zsh
-$ ./bin/goids
+### Mac
+
+#### homebrewでインストールする
+
+Homebrewでインストールできるようにしました.
+
+```sh
+brew tap shunsukehamada/goids
 ```
 
-または, 以下のバイナリファイルをダブルクリックして起動してください.  
-[./bin/mac/goids](./bin/goids)
+```sh
+brew install goids
+```
+
+```sh
+goids
+```
+
+#### 実行ファイルを開く
+
+リポジトリのbin/mac/goidsをダブルクリックするかターミナルから呼び出して実行してください.
+
+https://github.com/shunsukehamada/goids/tree/main/bin/mac
+
+### Windows
+
+#### 実行ファイルを開く
+
+リポジトリのbin/win/goids.exeをダブルクリックして呼び出して実行してください.
+
+https://github.com/shunsukehamada/goids/tree/main/bin/win
 
 ## ライセンス
 
