@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/shunsukehamada/goids/gui"
+	"github.com/hamao0820/goids/gui"
 
 	"github.com/spf13/cobra"
 )

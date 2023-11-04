@@ -4,8 +4,8 @@ import (
 	"image"
 	"time"
 
+	"github.com/hamao0820/goids/goids"
 	"github.com/kbinani/screenshot"
-	"github.com/shunsukehamada/goids/goids"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
