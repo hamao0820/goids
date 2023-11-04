@@ -14,7 +14,7 @@ gopher くんが boids flocking algorithm に従って動くのを眺めるだ�
 Homebrew でインストールできるようにしました.
 
 ```sh
-brew tap shunsukehamada/goids
+brew tap hamao0820/goids
 ```
 
 ```sh
